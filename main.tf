@@ -19,12 +19,12 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Allow SSH (port 22) from my IP address - for deployment and troubleshooting
+  # Allow SSH (port 22) from any address - for deployment and troubleshooting
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["197.211.59.187/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # Allow all outbound traffic - server needs to download packages, etc.
