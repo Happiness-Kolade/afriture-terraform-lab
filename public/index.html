@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afriture Terraform Lab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Afriture Terraform Lab</h1>
+            <p class="subtitle">Automated Deployment with GitHub Actions</p>
+        </header>
+        
+        <main>
+            <div class="card">
+                <h2>✅ Deployment Successful!</h2>
+                <p>This application was automatically deployed using:</p>
+                <ul>
+                    <li><strong>Terraform</strong> - Infrastructure as Code</li>
+                    <li><strong>AWS EC2</strong> - Cloud server hosting</li>
+                    <li><strong>GitHub Actions</strong> - CI/CD pipeline</li>
+                    <li><strong>Node.js + Express</strong> - Web application</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2>📊 Server Information</h2>
+                <div id="server-info">
+                    <p>Loading server data...</p>
+                </div>
+                <button onclick="loadServerInfo()">Refresh Server Info</button>
+            </div>
+            
+            <div class="card">
+                <h2>🎯 Lab Objectives</h2>
+                <p>This lab demonstrates:</p>
+                <ol>
+                    <li>Creating AWS infrastructure with Terraform</li>
+                    <li>Setting up automated deployments</li>
+                    <li>Implementing CI/CD best practices</li>
+                    <li>Managing cloud resources efficiently</li>
+                </ol>
+            </div>
+        </main>
+        
+        <footer>
+            <p>© 2024 Afriture Terraform Lab | Deployed on AWS EC2</p>
+            <p>Last updated: <span id="timestamp"></span></p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

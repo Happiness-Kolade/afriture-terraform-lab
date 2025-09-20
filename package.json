@@ -1,0 +1,16 @@
+{
+  "name": "afriture-terraform-lab",
+  "version": "1.0.0",
+  "description": "Terraform + GitHub Actions CI/CD Lab",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "keywords": ["terraform", "aws", "cicd", "nodejs"],
+  "author": "Happiness-Kolade",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,66 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Deploy to EC2
+      env:
+        PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        HOSTNAME: ${{ secrets.EC2_HOST }}
+        USER_NAME: ec2-user
+      run: |
+        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+          # Update system packages
+          sudo yum update -y
+          
+          # Install Node.js if not installed
+          if ! command -v node &> /dev/null; then
+            curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
+            sudo yum install -y nodejs
+          fi
+          
+          # Install PM2 process manager if not installed
+          if ! command -v pm2 &> /dev/null; then
+            sudo npm install -g pm2
+          fi
+          
+          # Create app directory
+          sudo mkdir -p /var/www/afriture-app
+          sudo chown ec2-user:ec2-user /var/www/afriture-app
+          cd /var/www/afriture-app
+          
+          # Clone/update repository
+          if [ -d ".git" ]; then
+            git pull origin main
+          else
+            git clone https://github.com/Happiness-Kolade/afriture-terraform-lab.git .
+          fi
+          
+          # Install dependencies
+          npm install
+          
+          # Stop existing app if running
+          pm2 stop afriture-app || true
+          
+          # Start the application with PM2
+          pm2 start app.js --name afriture-app
+          pm2 save
+        '
